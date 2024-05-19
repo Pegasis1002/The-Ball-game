@@ -17,7 +17,8 @@ pub fn spawn_enemy(
     ){
     if timer.0.tick(time.delta()).just_finished() {
         let window = window_query.get_single().unwrap();
-        let xpos: f32 = rand::thread_rng().gen_range(0.0..window.width());
+        let lim_up = window.width() - 85.0;
+        let xpos: f32 = rand::thread_rng().gen_range(85.0.. lim_up);
         commands.spawn((SpriteBundle {
             texture: asset_server.load("sprites/ball_red_small.png"),
             transform: Transform::from_xyz(xpos, window.height() - 20.0, 0.0),

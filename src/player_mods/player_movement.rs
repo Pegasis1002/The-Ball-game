@@ -21,10 +21,10 @@ pub fn player_movement(
     }
 
     //Boundaries/Collisions
-    if position.translation.x > width - 30.0{
-        position.translation.x = width - 30.0;
+    if position.translation.x > width - 90.0{
+        position.translation.x = width - 90.0;
     }
-    if position.translation.x < 30.0{
-        position.translation.x = 30.0;
+    if position.translation.x < 90.0{
+        position.translation.x = 90.0;
     }
 }
