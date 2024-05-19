@@ -1,15 +1,14 @@
 use bevy::prelude::*;
 use crate::enemy_mods::spawn_enemy::*;
 use crate::enemy_mods::enemy_movement::*;
+use crate::enemy_mods::despawn_enemy::*;
 
 pub struct EnemyPlugin;
-#[derive(Component)]
-pub struct Enemy;
 
 impl Plugin for EnemyPlugin {
     fn build(&self, app: &mut App) {
-        app.insert_resource(SpawnTimer(Timer::from_seconds(2.0, TimerMode::Repeating)))
-            .add_systems(Update, spawn_enemy)
+        app.insert_resource(SpawnTimer(Timer::from_seconds(1.0, TimerMode::Repeating)))
+            .add_systems(Update, (spawn_enemy, despawn_enemy))
             .add_systems(Update, enemy_movement);
     }
 }

@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 use bevy::window::PrimaryWindow;
 use rand::Rng;
-use crate::enemy_mods::enemy::Enemy;
+use crate::components::*;
 
 //Components
 #[derive(Resource)]
