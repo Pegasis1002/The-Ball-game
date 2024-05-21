@@ -5,23 +5,27 @@ pub mod player_mods;
 pub mod enemy_mods;
 pub mod env_mods;
 pub mod components;
+pub mod score_mods;
 use player_mods::player::PlayerPlugin;
 use enemy_mods::enemy::EnemyPlugin;
 use env_mods::env::EnvPlugin;
+use score_mods::score::ScorePlugin;
+
+#[derive(States, Debug, Clone, PartialEq, Eq, Hash, Default)]
+pub enum GameState {
+    #[default]
+    Playing,
+    GameOver,
+}
 
 fn main() {
-    App::new()
-        .add_plugins(DefaultPlugins)
-        .add_plugins(PlayerPlugin)
-        .add_plugins(EnemyPlugin)
-        .add_plugins(EnvPlugin)
-        .add_systems(Startup, (setup, background))
-        .run()
+    Game();
 }
 
 fn setup(
     mut commands: Commands,
     window_query: Query<&Window, With<PrimaryWindow>>,
+    asset_server: Res<AssetServer>,
     ){
     let window = window_query.get_single().unwrap();
     //Spawn Camera
@@ -45,4 +49,17 @@ fn background(
             ..default()
         }
     );
+}
+
+
+fn Game(){
+        App::new()
+            .init_state::<GameState>()
+            .add_plugins(DefaultPlugins)
+            .add_plugins(PlayerPlugin)
+            .add_plugins(EnemyPlugin)
+            .add_plugins(EnvPlugin)
+            .add_plugins(ScorePlugin)
+            .add_systems(Startup, (setup, background))
+            .run()
 }
